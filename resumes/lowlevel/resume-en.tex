@@ -1,0 +1,45 @@
+\def\LANG{en}
+
+\documentclass[../../main.tex]{subfiles}
+
+\begin{document}
+
+    \begin{center}
+        \bb{\myName}\\[0.5\baselineskip]
+        \myBirthDateAndAge\\[\baselineskip]
+    \end{center}
+
+    \noindent\begin{tabularx}{\textwidth}{>{\bfseries} p{2.5cm} X}
+        Contact\brk Information &
+            \begin{description}
+                \item[Home address:] \myAddress
+                \item[e-mail:] \email{\myEmail}
+                \item[Phone:] \myPhone
+            \end{description}\\
+        \meta{Education}
+            \submeta{\myBachelorEducationPeriod} & \myBachelorEducation\\
+            \submeta{\myMasterEducationPeriod} & \myMasterEducation\\
+        Work\brk Experience & No\\
+        Languages &
+            Russian (native), Technical English (B1)\\
+        Professional\brk Skills &
+            \begin{description}
+                \item[Programming languages:] \en{Java} (\myJavaExperience), \en{C/C++} (\myCppExperience), \en{C\#} (\myCsharpExperience), \en{Wolfram Mathematica} (\myWolframExperience), {\LaTeX} (\myTexExperience)
+                \item[\ii{Note}:] years of experience denote the \ii{actual usage} of the corresponding technology and mostly overlap
+                \item[Operating systems:] Microsoft Windows, Unix/Linux family
+                \item[Tools:] git
+                \item[Basic Skills:] data structures, algorithms, design patterns, multi-threading, OOP
+            \end{description}\\
+        About Me &
+            \begin{description}
+                \item[Areas of professional interest:] system programming, multi-threading and distributed systems, memory models, formal systems and foundations of mathematics, formal verification, functional programming, compilation and optimization, reverse engineering
+                \item[\ii{Note:}] areas of interest do not necessarily qualify as strong skills
+            \end{description}\\
+        Other &
+            \begin{description}
+                \item[GitHub:] \url{\myGithub}
+                \item[GitLab:] \url{\myGitlab}
+            \end{description}\\
+    \end{tabularx}
+
+\end{document}

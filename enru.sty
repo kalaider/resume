@@ -1,0 +1,20 @@
+\ProvidesPackage{enru}
+
+\RequirePackage{xkeyval}
+\RequirePackage{xstring}
+
+\DeclareOptionX{ru}{\def\@enru@lang{ru}}
+\DeclareOptionX{en}{\def\@enru@lang{en}}
+\DeclareOptionX*{\PackageError{enru}{Unknown option: `\CurrentOption'}}
+
+\ExecuteOptionsX{en}
+\ProcessOptionsX\relax
+
+\newcommand{\ENRU}[2]{%
+    \IfStrEq{\@enru@lang}{en}{#1}{%
+        \IfStrEq{\@enru@lang}{ru}{#2}{}%
+    }%
+}
+
+\newenvironment{EN}{\def\@enru@lang{en}}{}
+\newenvironment{RU}{\def\@enru@lang{ru}}{}

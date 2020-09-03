@@ -1,0 +1,60 @@
+name: build-pdf
+on: [push]
+jobs:
+  build_latex:
+    runs-on: ubuntu-latest
+    steps:
+      # repository setup
+      - name: Set up Git repository
+        uses: actions/checkout@v1
+
+      # compilation jobs
+      - name: Compile resumes/lowlevel/resume-en.tex
+        uses: dante-ev/latex-action@master
+        with:
+          working_directory: resumes/lowlevel
+          root_file: resume-en.tex
+      - name: Compile resumes/lowlevel/resume-ru.tex
+        uses: dante-ev/latex-action@master
+        with:
+          working_directory: resumes/lowlevel
+          root_file: resume-ru.tex
+
+      # release management
+      - name: Delete previous release
+        uses: author/action-rollback@stable
+        continue-on-error: true # job may fail the first time when there is no such tag
+        with:
+          tag: latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: latest
+          release_name: latest
+          draft: false
+          prerelease: false
+
+      # upload artifacts
+      - name: Upload resumes/lowlevel/resume-en.pdf
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: resumes/lowlevel/resume-en.pdf
+          asset_name: resume-lowlevel-en.pdf
+          asset_content_type: application/pdf
+      - name: Upload resumes/lowlevel/resume-ru.pdf
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: resumes/lowlevel/resume-ru.pdf
+          asset_name: resume-lowlevel-ru.pdf
+          asset_content_type: application/pdf

@@ -1,0 +1,10 @@
+image: danteev/texlive:latest
+
+build:
+  script:
+    - cd resumes/lowlevel
+    - latexmk -pdf resume-en.tex
+    - latexmk -pdf resume-ru.tex
+  artifacts:
+    paths:
+      - "**/*.pdf"

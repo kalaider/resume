@@ -1,0 +1,74 @@
+\ProvidesPackage{nyears}
+
+\RequirePackage{enru}
+\RequirePackage{datenumber}
+\RequirePackage{calc}
+\RequirePackage{intcalc}
+\RequirePackage{xparse}
+
+% based on the solution from https://tex.stackexchange.com/a/14519/203829
+
+\newcounter{datetoday}
+\newcounter{diffyears}
+\newcounter{diffyearsrem}
+\newcounter{diffmonths}
+\newcounter{diffdays}
+
+% starred version just returns the naked integer difference instead
+% non-starred adds language-specific ' year[s]' suffix
+\DeclareDocumentCommand{\nyears}{t* m m m}{%
+    \setmydatenumber{datetoday}{\the\year}{\the\month}{\the\day}%
+    \setmydatenumber{diffdays}{#2}{#3}{#4}%
+    \addtocounter{diffdays}{-\thedatetoday}%
+    \ifnum\value{diffdays}>0\else%
+        \setcounter{diffdays}{-\value{diffdays}}%
+    \fi%
+    \setcounter{diffyears}{\value{diffdays}/365}%
+    \setcounter{diffyearsrem}{\intcalcMod{\value{diffyears}}{10}}%
+    \setcounter{diffdays}{\value{diffdays}-365*\value{diffyears}}%
+    \setcounter{diffmonths}{\value{diffdays}/30}%
+    \setcounter{diffdays}{\value{diffdays}-30*\value{diffmonths}}%
+    %
+    \thediffyears%
+    \IfBooleanTF{#1}{}{%
+        ~%
+        \ENRU{%
+            \ifnum\value{diffyears}=0\relax%
+                years%
+            \else%
+                \ifnum\value{diffyears}>1\relax%
+                    years%
+                \else%
+                    year%
+                \fi%
+            \fi%
+        }{%
+            \def\select{\@secondoftwo}%
+            \ifnum\value{diffyears}>10\relax%
+                \ifnum\value{diffyears}<20\relax%
+                    \def\select{\@firstoftwo}%
+                \fi%
+            \fi%
+            \select%
+            % 10 < X < 20, ignore 100+ unrealistic cases
+            {лет}%
+            % all other cases
+            {\ifnum\value{diffyearsrem}=0\relax%
+                лет%
+            \else%
+                \ifnum\value{diffyearsrem}=1\relax%
+                    год%
+                \else%
+                    \ifnum\value{diffyearsrem}<5\relax%
+                        года%
+                    \else%
+                        лет%
+                    \fi%
+                \fi%
+            \fi}%
+        }%
+    }%
+}
+
+% language-specific age formatting
+\DeclareDocumentCommand{\nage}{m m m}{\ENRU{age~\nyears*{#1}{#2}{#3}}{\nyears{#1}{#2}{#3}}}

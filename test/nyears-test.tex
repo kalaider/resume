@@ -1,0 +1,74 @@
+\def\LANG{ru} % allows for both EN and RU
+\documentclass[../main.tex]{subfiles}
+
+\usepackage{xparse}
+
+\makeatletter
+\def\@nyearsx#1/#2/#3.{\nyears{#1}{#2}{#3}}
+\def\nyearsx#1{\expandafter\@nyearsx#1.}
+
+\def\@setdatex#1/#2/#3.{
+    \def\curdatex{#1/#2/#3}
+    \year=#1
+    \month=#2
+    \day=#3
+}
+\def\setdatex#1{\expandafter\@setdatex#1.}
+
+\def\printeachx#1{%
+    \def\@itemsep{\par}%
+    \def\nextitem{\def\nextitem{\@itemsep}}%
+    \@for\el:=#1\do{\nextitem{\curdatex} $-$ {\el} $=$ {\nyearsx{\el}}}%
+}
+
+\makeatother
+
+\def\repeatforboth#1{\begin{EN}#1\end{EN}\newpage\begin{RU}#1\end{RU}}
+
+\begin{document}
+
+\setdatex{2020/06/16}
+
+\repeatforboth{\printeachx{%
+    2020/06/16,%
+    2020/06/15,%
+    2020/06/17,%
+    2021/06/15,%
+    2021/06/17,%
+    2021/06/16,%
+    2019/06/16,%
+    2019/06/15,%
+    2019/06/17,%
+    2018/06/16,%
+    2017/06/16,%
+    2016/06/16,%
+    2015/06/16,%
+    2014/06/16,%
+    2013/06/16,%
+    2012/06/16,%
+    2011/06/16,%
+    2010/06/16,%
+    2009/06/16,%
+    2008/06/16,%
+    2007/06/16,%
+    2006/06/16,%
+    2005/06/16,%
+    2004/06/16,%
+    2003/06/16,%
+    2002/06/16,%
+    2001/06/16,%
+    2000/06/16,%
+    1999/06/16,%
+    1998/06/16,%
+    1997/06/16,%
+    1996/06/16,%
+    1995/06/16,%
+    1994/06/16,%
+    1993/06/16,%
+    1992/06/16,%
+    1991/06/16,%
+    1990/06/16,%
+    1989/06/16%
+}}
+
+\end{document}

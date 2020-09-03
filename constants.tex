@@ -1,0 +1,50 @@
+\def\sensitive{\ii{<\ENRU{Hidden}{Скрыто}>}}
+
+\def\myName{\ENRU{Vasilevsky Alexander}{Василевский Александр}}
+\def\myAddress{\sensitive}
+\def\myPhone{\sensitive}
+\def\myEmail{a.kalaider@yandex.ru}
+\def\myBirthDate{\sensitive}
+\def\myAge{\sensitive}
+\def\myBirthDateAndAge{%
+    \ifrevealSensitive
+        \myBirthDate~(\myAge)
+    \else%
+        \ii{<\ENRU{Birth date hidden}{Дата рождения скрыта}>}
+    \fi%
+}
+\def\myGithub{https://github.com/kalaider}
+\def\myGitlab{https://gitlab.com/kalaider}
+\def\myBitbucket{https://bitbucket.org/kalaider}
+
+\def\myBachelorEducationPeriod{2014--2018}
+\def\myBachelorEducation{\ENRU{Nizhny Novgorod State University, Physics Department, Information Systems and Technologies (Bachelor's degree)}{Национальный исследовательский Нижегородский государственный университет им.~Н.И.~Лобачевского, Физический факультет, Информационные системы и технологии (бакалавриат)}}
+\def\myMasterEducationPeriod{2018--2020}
+\def\myMasterEducation{\ENRU{Nizhny Novgorod State University, Physics Department, Information Systems and Technologies (Masters's degree)}{Национальный исследовательский Нижегородский государственный университет им.~Н.И.~Лобачевского, Физический факультет, Информационные системы и технологии (магистратура)}}
+
+% started to learn a few months earlier, it was mid summer;
+% but there is no point in referencing such an old time here
+\def\myJavaExperience{\nyears{2009}{11}{01}}
+% just before entering university; actually, about year or
+% two before, to be able to take part in Olympiad in
+% informatics, but that time the language was not actively
+% used; another reason to start learning C++ was
+% not-yet-explored JNI
+\def\myCppExperience{\nyears{2014}{05}{01}}
+% mainly to get rid of slow Swing-based utilities and replace
+% them with fast enough WPF-based; C++/Qt approach failed
+% due to portability (too many large dlls, non-trivial
+% CI/CD configuration, etc.) and maintainability issues
+% (the entire Qt distribution must be installed each time
+% there is a need to fix a small bug, no package manager,
+% so all third-party libraries must be installed separately)
+\def\myCsharpExperience{\nyears{2016}{09}{01}}
+% really helps a lot, especially in non-trivial calculations;
+% about a year after entering university; most actively used
+% between 2017 and 2019 (qualification works relied heavily
+% on it)
+\def\myWolframExperience{\nyears{2015}{09}{01}}
+% initially, to be able to read and type formulas, mostly;
+% then, to typeset laboratory works, various reports,
+% qualification works, write some notes, small articles, etc.
+\def\myTexExperience{\nyears{2014}{06}{01}}
