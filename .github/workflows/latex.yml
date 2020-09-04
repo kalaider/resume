@@ -19,6 +19,16 @@ jobs:
         with:
           working_directory: resumes/lowlevel
           root_file: resume-ru.tex
+      - name: Compile resumes/java/resume-en.tex
+        uses: dante-ev/latex-action@master
+        with:
+          working_directory: resumes/java
+          root_file: resume-en.tex
+      - name: Compile resumes/java/resume-ru.tex
+        uses: dante-ev/latex-action@master
+        with:
+          working_directory: resumes/java
+          root_file: resume-ru.tex
 
       # release management
       - name: Delete previous release
@@ -57,4 +67,22 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: resumes/lowlevel/resume-ru.pdf
           asset_name: resume-lowlevel-ru.pdf
+          asset_content_type: application/pdf
+      - name: Upload resumes/java/resume-en.pdf
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: resumes/java/resume-en.pdf
+          asset_name: resume-java-en.pdf
+          asset_content_type: application/pdf
+      - name: Upload resumes/java/resume-ru.pdf
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: resumes/java/resume-ru.pdf
+          asset_name: resume-java-ru.pdf
           asset_content_type: application/pdf

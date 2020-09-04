@@ -5,6 +5,9 @@ build:
     - cd resumes/lowlevel
     - latexmk -pdf resume-en.tex
     - latexmk -pdf resume-ru.tex
+    - cd ../java
+    - latexmk -pdf resume-en.tex
+    - latexmk -pdf resume-ru.tex
   artifacts:
     paths:
       - "**/*.pdf"
