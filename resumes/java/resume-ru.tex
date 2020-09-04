@@ -1,0 +1,51 @@
+\def\LANG{ru}
+
+\documentclass[../../main.tex]{subfiles}
+
+\begin{document}
+
+    \begin{center}
+        \bb{\myName}\\[0.5\baselineskip]
+        \myBirthDateAndAge\\[\baselineskip]
+    \end{center}
+
+    \noindent\begin{tabularx}{\textwidth}{>{\bfseries} p{3cm} X}
+        Контактная информация &
+            \begin{description}
+                \item[Домашний адрес:] \myAddress
+                \item[e-mail:] \email{\myEmail}
+                \item[Телефон:] \myPhone
+            \end{description}\\
+        \meta{Образование}
+            \submeta{\myBachelorEducationPeriod} & \myBachelorEducation\\
+            \submeta{\myMasterEducationPeriod} & \myMasterEducation\\
+        Опыт работы & Отсутствует\\
+        Языки &
+            Русский (родной), технический английский (\en{B1})\\
+        Профессио\-наль\-ные навыки &
+            \begin{description}
+                \item[Языки программирования:] \en{Java} (\myJavaExperience), \en{C/C++} (\myCppExperience), \en{C\#} (\myCsharpExperience), \en{SQL} (простые запросы), \en{HTML}, \en{CSS} (простая \mbox{верстка})
+                \item[\ii{Замечание}:] периоды в скобках перекрываются, указан срок \ii{активного} использования технологий
+                \item[Операционные системы:] \en{Microsoft Windows}, семейство \en{Unix/""Linux}
+                \item[Инструменты:] \en{git}, \en{Maven}
+                \item[\en{Java}:] \en{Java SE}, \en{Java EE} (включая \en{JPA}, \en{JMS}, \en{JSP}, \en{Bean Validation})
+                \item[Фреймворки и технологии (\en{Java}):] \en{Spring}, \en{Spring Boot}, \en{Hibernate}
+                \item[Серверы/контейнеры приложений:] \en{Tomcat}
+                \item[Инструменты тестирования (\en{Java}):] \en{JUnit}, \en{Mockito}
+                \item[\en{DevOps}:] знаком с \en{Docker}, \en{Jenkins}, \en{CI/CD}
+                \item[Общие навыки:] структуры данных, алгоритмы, шаблоны проектирования (в т.ч. \en{enterprise}), многопоточное программирование, ООП, \en{UML}
+            \end{description}\\
+        О себе &
+            \begin{description}
+                \item[Области профессионального интереса:] системное программирование, многопоточное и распределенное программирование, функциональное программирование, компиляция и оптимизация, обратная разработка
+                \item[\ii{Замечание:}] области интереса не являются сильными навыками
+                \item[Обучаемость:] склонность к непрерывному самообучению, возможность легкого освоения новых технологий и языков программирования, в т.ч. функциональных
+            \end{description}\\
+        Прочее &
+            \begin{description}
+                \item[GitHub:] \url{\myGithub}
+                \item[GitLab:] \url{\myGitlab}
+            \end{description}\\
+    \end{tabularx}
+
+\end{document}
