@@ -8,6 +8,7 @@ This repository contains resume(s)/CVs of its creator organized in manageable an
 * `test/` - various tests for non-trivial custom commands and packages
 * `resumes/` - actual resumes bodies
 * `resumes/lowlevel` - focus on low-level skills (C/C++ and related stuff)
+* `resumes/java` - focus on Java and web development
 * `main.tex` - trick to simplify relative path management, root document for the `subfiles` package
 * `sensitive.tex` - file, nonexistent by default, where sensitive information (home address, phone, etc.) may be provided
 
