@@ -4,24 +4,13 @@
 
 \begin{document}
 
-    \begin{center}
-        \bb{\myName}\\[0.5\baselineskip]
-        \myBirthDateAndAge\\[\baselineskip]
-    \end{center}
+    \blockHeader
 
     \noindent\begin{tabularx}{\textwidth}{>{\bfseries} p{2.5cm} X}
-        Contact\brk Information &
-            \begin{description}
-                \item[Home address:] \myAddress
-                \item[e-mail:] \email{\myEmail}
-                \item[Phone:] \myPhone
-            \end{description}\\
-        \meta{Education}
-            \submeta{\myBachelorEducationPeriod} & \myBachelorEducation\\
-            \submeta{\myMasterEducationPeriod} & \myMasterEducation\\
+        Contact\brk Information & \blockContactInfo\\
+        \metablockEducation\\
         Work\brk Experience & No\\
-        Languages &
-            Russian (native), Technical English (B1)\\
+        Languages & \blockLanguages\\
         Professional\brk Skills &
             \begin{description}
                 \item[Programming languages:] Java (\myJavaExperience), C/C++ (\myCppExperience), C\# (\myCsharpExperience), SQL (simple queries), HTML, CSS (basic)

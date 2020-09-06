@@ -4,24 +4,13 @@
 
 \begin{document}
 
-    \begin{center}
-        \bb{\myName}\\[0.5\baselineskip]
-        \myBirthDateAndAge\\[\baselineskip]
-    \end{center}
+    \blockHeader
 
     \noindent\begin{tabularx}{\textwidth}{>{\bfseries} p{3cm} X}
-        Контактная информация &
-            \begin{description}
-                \item[Домашний адрес:] \myAddress
-                \item[e-mail:] \email{\myEmail}
-                \item[Телефон:] \myPhone
-            \end{description}\\
-        \meta{Образование}
-            \submeta{\myBachelorEducationPeriod} & \myBachelorEducation\\
-            \submeta{\myMasterEducationPeriod} & \myMasterEducation\\
+        Контактная информация & \blockContactInfo\\
+        \metablockEducation\\
         Опыт работы & Отсутствует\\
-        Языки &
-            Русский (родной), технический английский (\en{B1})\\
+        Языки & \blockLanguages\\
         Профессио\-наль\-ные навыки &
             \begin{description}
                 \item[Языки программирования:] \en{Java} (\myJavaExperience), \en{C/C++} (\myCppExperience), \en{C\#} (\myCsharpExperience), \en{SQL} (простые запросы), \en{HTML}, \en{CSS} (простая \mbox{верстка})

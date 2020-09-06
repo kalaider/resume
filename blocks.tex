@@ -1,0 +1,25 @@
+\def\blockHeader{
+    \begin{center}
+        \bb{\myName}\\[0.5\baselineskip]
+        \myBirthDateAndAge\\[\baselineskip]
+    \end{center}
+}
+
+\def\blockContactInfo{
+    \begin{description}
+        \item[\ENRU{Home address}{Домашний адрес}:] \myAddress
+        \item[e-mail:] \email{\myEmail}
+        \item[\ENRU{Phone}{Телефон}:] \myPhone
+    \end{description}
+}
+
+\def\blockLanguages{
+    \ENRU{Russian (native)}{Русский (родной)}, %
+    \ENRU{Technical English (B1)}{технический английский (\en{B1})}
+}
+
+\def\metablockEducation{
+    \meta{\ENRU{Education}{Образование}}
+        \submeta{\myBachelorEducationPeriod} & \myBachelorEducation\\
+        \submeta{\myMasterEducationPeriod} & \myMasterEducation
+}
