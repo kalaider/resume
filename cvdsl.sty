@@ -48,7 +48,7 @@
 }
 \DeclareDocumentCommand{\@cv@bullets}{+m}{%
     % note surrounding braces here
-    {\begin{cv@bullets}#1\end{cv@bullets}}%
+    {\begin{cv@bullets}#1\unskip\end{cv@bullets}}%
 }
 \DeclareDocumentCommand{\@cv@bullet}{o +m}{\item[\IfNoValueTF{#1}{}{#1:}] #2}
 \DeclareDocumentCommand{\@cv@bulletedBlock}{+m +m}{%
