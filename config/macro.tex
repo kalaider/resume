@@ -14,3 +14,8 @@
 \def\email{\texttt}
 \def\phone{\relax}
 \def\url{\texttt}
+
+% tool name, programming language name, etc.; #1 mush be english-only
+\newcommand{\w}[1]{\ENRU{#1}{\en{#1}}}
+% redefine italic correction to be just a breakable slash
+\renewcommand{\/}{/\discretionary{}{}{}}
