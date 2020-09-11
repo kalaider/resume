@@ -4,30 +4,48 @@
 
 \begin{document}
 
-    \blockHeader
+    \CVHeader
 
-    \noindent\begin{tabularx}{\textwidth}{>{\bfseries} p{2.5cm} X}
-        Контактная\brk информация & \blockContactInfo\\
-        \metablockEducation\\
-        Опыт\brk работы & Отсутствует\\
-        Языки & \blockLanguages\\
-        Профессио\-наль\-ные\brk навыки &
-            \begin{description}
-                \item[Языки программирования:] \en{Java} (\myJavaExperience), \en{C/C++} (\myCppExperience), \en{C\#} (\myCsharpExperience), \en{Wolfram Mathematica} (\myWolframExperience), {\LaTeX} (\myTexExperience)
-                \item[\ii{Замечание}:] периоды в скобках перекрываются, указан срок \ii{активного} использования технологий
-                \item[Операционные системы:] \en{Microsoft Windows}, семейство \en{Unix/""Linux}
-                \item[Инструменты:] \en{git}
-                \item[Общие навыки:] структуры данных, алгоритмы, шаблоны проектирования, многопоточное программирование, ООП
-            \end{description}\\
-        О себе &
-            \begin{description}
-                \item[Области профессионального интереса:] системное программирование, многопоточное и распределенное программирование, модели памяти, формальные системы и основания математики, формальная верификация, функциональное программирование, компиляция и оптимизация, обратная разработка
-            \end{description}\\
-        Прочее &
-            \begin{description}
-                \item[GitHub:] \url{\myGithub}
-                \item[GitLab:] \url{\myGitlab}
-            \end{description}\\
-    \end{tabularx}
+    \begin{CV}
+        \ContactInfo
+        \Education
+        \WorkExperience{Отсутствует}
+        \Languages
+        \Skills{
+            \Langs{
+                \en{Java} (\myJavaExperience),
+                \en{C/C++} (\myCppExperience),
+                \en{C\#} (\myCsharpExperience),
+                \en{Wolfram Mathematica} (\myWolframExperience),
+                \en{\LaTeX} (\myTexExperience)
+            }
+            \Note{периоды в скобках перекрываются, указан срок \ii{активного} использования технологий}
+            \OS{\en{Microsoft Windows}, семейство \en{Unix/""Linux}}
+            \Tools{\en{git}}
+            \Basic{
+                структуры данных,
+                алгоритмы,
+                шаблоны проектирования,
+                многопоточное программирование,
+                ООП
+            }
+        }
+        \AboutMe{
+            \Bullet[Области профессионального интереса]{
+                системное программирование,
+                многопоточное и распределенное программирование,
+                модели памяти,
+                формальные системы и основания математики,
+                формальная верификация,
+                функциональное программирование,
+                компиляция и оптимизация,
+                обратная разработка
+            }
+        }
+        \Other{
+            \GitHub
+            \GitLab
+        }
+    \end{CV}
 
 \end{document}

@@ -1,0 +1,77 @@
+\ProvidesPackage{cvdsl}
+
+\RequirePackage{amssymb}    % for bullets
+\RequirePackage{xparse}
+\RequirePackage{enumitem}   % lists
+\RequirePackage{tabularx}   % layout
+
+\newlist{cv@bullets}{description}{1}
+% expected usage -- inside a group, i.e. {};
+% otherwise trailing spacing would be incorrect
+\setlist[cv@bullets]{%
+    font=\normalfont{\tiny\raisebox{1ex}{$\blacktriangleright$}\ },%
+    after=\vspace{-2\baselineskip},%
+    before=\vspace{-0.6\baselineskip}%
+}
+
+\DeclareDocumentCommand{\@cv@setup@style}{}{
+    \setlist{nosep}
+    \setlength{\tabcolsep}{12pt}
+    \setlength{\extrarowheight}{12pt}
+}
+
+\DeclareDocumentCommand{\@cv@userSetup}{}{}
+\DeclareDocumentCommand{\SetupCV}{m}{%
+    \DeclareDocumentCommand{\@cv@userSetup}{}{#1}%
+}
+
+\DeclareDocumentCommand{\@cv@subblock@format}{+m}{\hfill\textnormal{#1}}
+
+\newif\if@cv@metablock@guard
+\@cv@metablock@guardfalse
+
+\DeclareDocumentCommand{\@cv@block}{+m +m}{#1 & #2\\}
+\DeclareDocumentCommand{\@cv@subblock}{+m +m}{\@cv@subblock@format{#1} & #2\\}
+\DeclareDocumentCommand{\@cv@metablock}{+m m}{%
+    \if@cv@metablock@guard
+        \PackageError{cvdsl}{Nested metablocks are not allowed}%
+    \fi%
+    \global\@cv@metablock@guardtrue%
+        % output title line
+        \@cv@block{#1}{}%
+        % redefine block to be subblock, output body and revert all back
+        \global\let\@cv@savedblock=\@cv@block%
+        \gdef\@cv@block{\@cv@subblock}%
+            #2%
+        \global\let\@cv@block=\@cv@savedblock%
+    \global\@cv@metablock@guardfalse%
+}
+\DeclareDocumentCommand{\@cv@bullets}{+m}{%
+    % note surrounding braces here
+    {\begin{cv@bullets}#1\end{cv@bullets}}%
+}
+\DeclareDocumentCommand{\@cv@bullet}{o +m}{\item[\IfNoValueTF{#1}{}{#1:}] #2}
+\DeclareDocumentCommand{\@cv@bulletedBlock}{+m +m}{%
+    \@cv@block{#1}{\@cv@bullets{#2}}%
+}
+
+\DeclareDocumentCommand{\@cv@setup}{}{%
+    % utilities
+    \def\Break{\par}
+    \def\_{\Break}
+    % blocks
+    \def\Block{\@cv@block}
+    \def\Metablock{\@cv@metablock}
+    \def\Bullets{\@cv@bullets}
+    \def\Bullet{\@cv@bullet}
+    \def\BulletedBlock{\@cv@bulletedBlock}
+}
+
+\DeclareDocumentEnvironment{CV}{O{2.5cm} +b}{%
+    \@cv@setup@style
+    \@cv@setup%
+    \@cv@userSetup%
+    \noindent\begin{tabularx}{\textwidth}{>{\bfseries} p{#1} X}
+        #2
+    \end{tabularx}%
+}{}

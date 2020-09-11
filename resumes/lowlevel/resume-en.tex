@@ -4,30 +4,48 @@
 
 \begin{document}
 
-    \blockHeader
+    \CVHeader
 
-    \noindent\begin{tabularx}{\textwidth}{>{\bfseries} p{2.5cm} X}
-        Contact\brk Information & \blockContactInfo\\
-        \metablockEducation\\
-        Work\brk Experience & No\\
-        Languages & \blockLanguages\\
-        Professional\brk Skills &
-            \begin{description}
-                \item[Programming languages:] \en{Java} (\myJavaExperience), \en{C/C++} (\myCppExperience), \en{C\#} (\myCsharpExperience), \en{Wolfram Mathematica} (\myWolframExperience), {\LaTeX} (\myTexExperience)
-                \item[\ii{Note}:] years of experience denote the \ii{actual usage} of the corresponding technology and mostly overlap
-                \item[Operating systems:] Microsoft Windows, Unix/Linux family
-                \item[Tools:] git
-                \item[Basic skills:] data structures, algorithms, design patterns, multi-threading, OOP
-            \end{description}\\
-        About Me &
-            \begin{description}
-                \item[Areas of professional interest:] system programming, multi-threading and distributed systems, memory models, formal systems and foundations of mathematics, formal verification, functional programming, compilation and optimization, reverse engineering
-            \end{description}\\
-        Other &
-            \begin{description}
-                \item[GitHub:] \url{\myGithub}
-                \item[GitLab:] \url{\myGitlab}
-            \end{description}\\
-    \end{tabularx}
+    \begin{CV}
+        \ContactInfo
+        \Education
+        \WorkExperience{No}
+        \Languages
+        \Skills{
+            \Langs{
+                Java (\myJavaExperience),
+                C/C++ (\myCppExperience),
+                C\# (\myCsharpExperience),
+                Wolfram Mathematica (\myWolframExperience),
+                \LaTeX (\myTexExperience)
+            }
+            \Note{years of experience denote the \ii{actual usage} of the corresponding technology and mostly overlap}
+            \OS{Microsoft Windows, Unix/Linux family}
+            \Tools{git}
+            \Basic{
+                data structures,
+                algorithms,
+                design patterns,
+                multi-threading,
+                OOP
+            }
+        }
+        \AboutMe{
+            \Bullet[Areas of professional interest]{
+                system programming,
+                multi-threading and distributed systems,
+                memory models,
+                formal systems and foundations of mathematics,
+                formal verification,
+                functional programming,
+                compilation and optimization,
+                reverse engineering
+            }
+        }
+        \Other{
+            \GitHub
+            \GitLab
+        }
+    \end{CV}
 
 \end{document}

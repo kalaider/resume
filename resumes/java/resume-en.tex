@@ -2,40 +2,67 @@
 
 \documentclass[../../main.tex]{subfiles}
 
+\SetupCVSkills{%
+    \def\Protocols{\Skill[Protocols]}%
+    \def\JavaFrameworks{\Skill[Frameworks (Java)]}%
+    \def\JavaServers{\Skill[Servers / servlet containers]}%
+    \def\JavaTestingTools{\Skill[Testing tools (Java)]}%
+    \def\Java{\Skill[Java]}%
+    \def\DevOps{\Skill[DevOps]}%
+}
+
 \begin{document}
 
-    \blockHeader
+    \CVHeader
 
-    \noindent\begin{tabularx}{\textwidth}{>{\bfseries} p{2.5cm} X}
-        Contact\brk Information & \blockContactInfo\\
-        \metablockEducation\\
-        Work\brk Experience & No\\
-        Languages & \blockLanguages\\
-        Professional\brk Skills &
-            \begin{description}
-                \item[Programming languages:] Java (\myJavaExperience), C/C++ (\myCppExperience), C\# (\myCsharpExperience)
-                \item[\ii{Note}:] years of experience denote the \ii{actual usage} of the corresponding technology and mostly overlap
-                \item[Other languages:] SQL, HTML, CSS
-                \item[Protocols:] TCP/IP, HTTP
-                \item[Operating systems:] Microsoft Windows, Unix/Linux family
-                \item[Tools:] git, Maven
-                \item[Java:] Java SE, Java EE (including JPA, JMS, JSP, Bean Validation), JNI
-                \item[Frameworks (Java):] Spring, Spring Boot, Hibernate
-                \item[Servers / servlet containers:] Tomcat
-                \item[Testing tools (Java):] JUnit, Mockito
-                \item[DevOps:] familiar with Docker, Jenkins, CI/CD
-                \item[Basic skills:] data structures, algorithms, design patterns (including enterprise), multi-threading, OOP, UML
-            \end{description}\\
-        About Me &
-            \begin{description}
-                \item[Areas of professional interest:] system programming, multi-threading and distributed systems, functional programming, compilation and optimization, reverse engineering
-                \item[Learning ability:] continuous self-learning, quick adaptation to new technologies and programming languages, including functional languages
-            \end{description}\\
-        Other &
-            \begin{description}
-                \item[GitHub:] \url{\myGithub}
-                \item[GitLab:] \url{\myGitlab}
-            \end{description}\\
-    \end{tabularx}
+    \begin{CV}
+        \ContactInfo
+        \Education
+        \WorkExperience{No}
+        \Languages
+        \Skills{
+            \Langs{
+                Java (\myJavaExperience),
+                C/C++ (\myCppExperience),
+                C\# (\myCsharpExperience)
+            }
+            \Note{years of experience denote the \ii{actual usage} of the corresponding technology and mostly overlap}
+            \OtherLangs{SQL, HTML, CSS}
+            \Protocols{TCP/IP, HTTP}
+            \OS{Microsoft Windows, Unix/Linux family}
+            \Tools{git, Maven}
+            \Java{
+                Java SE,
+                Java EE (including JPA, JMS, JSP, Bean Validation),
+                JNI
+            }
+            \JavaFrameworks{Spring, Spring Boot, Hibernate}
+            \JavaServers{Tomcat}
+            \JavaTestingTools{JUnit, Mockito}
+            \DevOps{familiar with Docker, Jenkins, CI/CD}
+            \Basic{
+                data structures,
+                algorithms,
+                design patterns (including enterprise),
+                multi-threading,
+                OOP,
+                UML
+            }
+        }
+        \AboutMe{
+            \Bullet[Areas of professional interest]{
+                system programming,
+                multi-threading and distributed systems,
+                functional programming,
+                compilation and optimization,
+                reverse engineering
+            }
+            \Bullet[Learning ability]{continuous self-learning, quick adaptation to new technologies and programming languages, including functional languages}
+        }
+        \Other{
+            \GitHub
+            \GitLab
+        }
+    \end{CV}
 
 \end{document}

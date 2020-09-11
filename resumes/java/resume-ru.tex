@@ -2,40 +2,67 @@
 
 \documentclass[../../main.tex]{subfiles}
 
+\SetupCVSkills{%
+    \def\Protocols{\Skill[Протоколы]}%
+    \def\JavaFrameworks{\Skill[Фреймворки (\en{Java})]}%
+    \def\JavaServers{\Skill[Сервера / контейнеры приложений]}%
+    \def\JavaTestingTools{\Skill[Инструменты тестирования (\en{Java})]}%
+    \def\Java{\Skill[\en{Java}]}%
+    \def\DevOps{\Skill[\en{DevOps}]}%
+}
+
 \begin{document}
 
-    \blockHeader
+    \CVHeader
 
-    \noindent\begin{tabularx}{\textwidth}{>{\bfseries} p{2.5cm} X}
-        Контактная\brk информация & \blockContactInfo\\
-        \metablockEducation\\
-        Опыт\brk работы & Отсутствует\\
-        Языки & \blockLanguages\\
-        Профессио\-наль\-ные\brk навыки &
-            \begin{description}
-                \item[Языки программирования:] \en{Java} (\myJavaExperience), \en{C/C++} (\myCppExperience), \en{C\#} (\myCsharpExperience)
-                \item[\ii{Замечание}:] периоды в скобках перекрываются, указан срок \ii{активного} использования технологий
-                \item[Прочие языки:] \en{SQL}, \en{HTML}, \en{CSS}
-                \item[Протоколы:] \en{TCP/""IP}, \en{HTTP}
-                \item[Операционные системы:] \en{Microsoft Windows}, семейство \en{Unix/""Linux}
-                \item[Инструменты:] \en{git}, \en{Maven}
-                \item[\en{Java}:] \en{Java SE}, \en{Java EE} (включая \en{JPA}, \en{JMS}, \en{JSP}, \en{Bean Validation}), \en{JNI}
-                \item[Фреймворки и технологии (\en{Java}):] \en{Spring}, \en{Spring Boot}, \en{Hibernate}
-                \item[Серверы/контейнеры приложений:] \en{Tomcat}
-                \item[Инструменты тестирования (\en{Java}):] \en{JUnit}, \en{Mockito}
-                \item[\en{DevOps}:] основы \en{Docker}, \en{Jenkins}, \en{CI/CD}
-                \item[Общие навыки:] структуры данных, алгоритмы, шаблоны проектирования (в т.ч. \en{enterprise}), многопоточное программирование, ООП, \en{UML}
-            \end{description}\\
-        О себе &
-            \begin{description}
-                \item[Области профессионального интереса:] системное программирование, многопоточное и распределенное программирование, функциональное программирование, компиляция и оптимизация, обратная разработка
-                \item[Обучаемость:] склонность к непрерывному самообучению, возможность легкого освоения новых технологий и языков программирования, в т.ч. функциональных
-            \end{description}\\
-        Прочее &
-            \begin{description}
-                \item[GitHub:] \url{\myGithub}
-                \item[GitLab:] \url{\myGitlab}
-            \end{description}\\
-    \end{tabularx}
+    \begin{CV}
+        \ContactInfo
+        \Education
+        \WorkExperience{Отсутствует}
+        \Languages
+        \Skills{
+            \Langs{
+                \en{Java} (\myJavaExperience),
+                \en{C/C++} (\myCppExperience),
+                \en{C\#} (\myCsharpExperience)
+            }
+            \Note{периоды в скобках перекрываются, указан срок \ii{активного} использования технологий}
+            \OtherLangs{\en{SQL}, \en{HTML}, \en{CSS}}
+            \Protocols{\en{TCP/IP}, \en{HTTP}}
+            \OS{\en{Microsoft Windows}, семейство \en{Unix/""Linux}}
+            \Tools{\en{git}, \en{Maven}}
+            \Java{
+                \en{Java SE},
+                \en{Java EE} (включая \en{JPA}, \en{JMS}, \en{JSP}, \en{Bean Validation}),
+                \en{JNI}
+            }
+            \JavaFrameworks{\en{Spring}, \en{Spring Boot}, \en{Hibernate}}
+            \JavaServers{\en{Tomcat}}
+            \JavaTestingTools{\en{JUnit}, \en{Mockito}}
+            \DevOps{основы \en{Docker}, \en{Jenkins}, \en{CI/CD}}
+            \Basic{
+                структуры данных,
+                алгоритмы,
+                шаблоны проектирования (в т.ч. \en{enterprise}),
+                многопоточное программирование,
+                ООП,
+                \en{UML}
+            }
+        }
+        \AboutMe{
+            \Bullet[Области профессионального интереса]{
+                системное программирование,
+                многопоточное и распределенное программирование,
+                функциональное программирование,
+                компиляция и оптимизация,
+                обратная разработка
+            }
+            \Bullet[Обучаемость]{склонность к непрерывному самообучению, возможность легкого освоения новых технологий и языков программирования, в т.ч. функциональных}
+        }
+        \Other{
+            \GitHub
+            \GitLab
+        }
+    \end{CV}
 
 \end{document}

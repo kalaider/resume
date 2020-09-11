@@ -1,4 +1,30 @@
-\def\blockHeader{
+\def\cvSkillsSetup{%
+    \def\Langs{\Skill[\ENRU{Programming languages}{Языки программирования}]}%
+    \def\OtherLangs{\Skill[\ENRU{Other languages}{Прочие языки}]}%
+    \def\OS{\Skill[\ENRU{Operating systems}{Операционные системы}]}%
+    \def\Tools{\Skill[\ENRU{Tools}{Инструменты}]}%
+    \def\Basic{\Skill[\ENRU{Basic skills}{Базовые навыки}]}%
+    \cvSkillsExtraSetup%
+}
+\def\cvSkillsExtraSetup{}
+\def\SetupCVSkills#1{\def\cvSkillsExtraSetup{#1}}
+
+\SetupCV{%
+    \def\ContactInfo{\blockContactInfo}%
+    \def\Languages{\blockLanguages}%
+    \def\Education{\metablockEducation}%
+    \def\WorkExperience{\Block{\ENRU{Work\_ Experience}{Опыт\_ работы}}}%
+    \def\Skill{\Bullet}%
+    \def\Note{\Bullet[\ii{\ENRU{Note}{Замечание}}]}%
+    \def\Skills##1{\Block{\ENRU{Professional\_ Skills}{Профессио\-наль\-ные\_ навыки}}{%
+        {\cvSkillsSetup\Bullets{##1}}}}%
+    \def\AboutMe{\BulletedBlock{\ENRU{About Me}{О себе}}}%
+    \def\Other{\BulletedBlock{\ENRU{Other}{Прочее}}}%
+    \def\GitHub{\Bullet[GitHub]{\url{\myGithub}}}%
+    \def\GitLab{\Bullet[GitLab]{\url{\myGitlab}}}%
+}
+
+\def\CVHeader{
     \begin{center}
         \bb{\myName}\\[0.5\baselineskip]
         \myBirthDateAndAge\\[\baselineskip]
@@ -6,20 +32,23 @@
 }
 
 \def\blockContactInfo{
-    \begin{description}
-        \item[\ENRU{Home address}{Домашний адрес}:] \myAddress
-        \item[e-mail:] \email{\myEmail}
-        \item[\ENRU{Phone}{Телефон}:] \myPhone
-    \end{description}
+    \BulletedBlock{\ENRU{Contact\_ Information}{Контактная\_ информация}}{
+        \Bullet[\ENRU{Home address}{Домашний адрес}]{\myAddress}
+        \Bullet[e-mail]{\email{\myEmail}}
+        \Bullet[\ENRU{Phone}{Телефон}]{\myPhone}
+    }
 }
 
 \def\blockLanguages{
-    \ENRU{Russian (native)}{Русский (родной)}, %
-    \ENRU{Technical English (B1)}{технический английский (\en{B1})}
+    \Block{\ENRU{Languages}{Языки}}{
+        \ENRU{Russian (native)}{Русский (родной)},
+        \ENRU{Technical English (B1)}{технический английский (\en{B1})}
+    }
 }
 
 \def\metablockEducation{
-    \meta{\ENRU{Education}{Образование}}
-        \submeta{\myBachelorEducationPeriod} & \myBachelorEducation\\
-        \submeta{\myMasterEducationPeriod} & \myMasterEducation
+    \Metablock{\ENRU{Education}{Образование}}{
+        \Block{\myBachelorEducationPeriod}{\myBachelorEducation}
+        \Block{\myMasterEducationPeriod}{\myMasterEducation}
+    }
 }
