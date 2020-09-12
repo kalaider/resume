@@ -1,51 +1,75 @@
 \ProvidesPackage{cvdsl}
 
 \RequirePackage{amssymb}    % for bullets
+\RequirePackage{xkeyval}    % package options
 \RequirePackage{xparse}
+\RequirePackage{calc}       % widthof
 \RequirePackage{enumitem}   % lists
-\RequirePackage{tabularx}   % layout
-
-\newlist{cv@bullets}{description}{1}
-% expected usage -- inside a group, i.e. {};
-% otherwise trailing spacing would be incorrect
-\setlist[cv@bullets]{%
-    font=\normalfont{\tiny\raisebox{1ex}{$\blacktriangleright$}\ },%
-    after=\vspace{-2\baselineskip},%
-    before=\vspace{-0.6\baselineskip}%
+\RequirePackage{tabularx}   % either way, used in both styles
+\AtEndOfPackage{
+    \if@cv@cfg@table\else
+        \RequirePackage{titlesec}   % only required for flat style
+    \fi
 }
 
-\DeclareDocumentCommand{\@cv@setup@style}{}{
-    \setlist{nosep}
-    \setlength{\tabcolsep}{12pt}
-    \setlength{\extrarowheight}{12pt}
-}
+% options processing
 
-\DeclareDocumentCommand{\@cv@userSetup}{}{}
+\newif\if@cv@cfg@table
+\newif\if@cv@cfg@bullets
+
+\DeclareOptionX{table}{\@cv@cfg@tabletrue}
+\DeclareOptionX{flat}{\@cv@cfg@tablefalse}
+\DeclareOptionX{bullets}{\@cv@cfg@bulletstrue}
+\DeclareOptionX{nobullets}{\@cv@cfg@bulletsfalse}
+\DeclareOptionX*{\PackageError{cvdsl}{Unknown option: `\CurrentOption'}}
+
+\ExecuteOptionsX{table,bullets}
+\ProcessOptionsX\relax
+
+% user setup support
+
+\DeclareDocumentCommand{\@cv@setup@user}{}{}
 \DeclareDocumentCommand{\SetupCV}{m}{%
-    \DeclareDocumentCommand{\@cv@userSetup}{}{#1}%
+    \DeclareDocumentCommand{\@cv@setup@user}{}{#1}%
 }
 
-\DeclareDocumentCommand{\@cv@subblock@format}{+m}{\hfill\textnormal{#1}}
+% other common definitions
 
 \newif\if@cv@metablock@guard
 \@cv@metablock@guardfalse
 
-\DeclareDocumentCommand{\@cv@block}{+m +m}{#1 & #2\\}
-\DeclareDocumentCommand{\@cv@subblock}{+m +m}{\@cv@subblock@format{#1} & #2\\}
-\DeclareDocumentCommand{\@cv@metablock}{+m m}{%
+% implementation
+
+% expected usage -- inside a group, i.e. {};
+% otherwise trailing spacing would be incorrect,
+% e.g. tabulars suffer from this issue
+\newlist{cv@bullets}{description}{1}
+\if@cv@cfg@bullets
+    \def\@cv@listbullet{{\tiny\raisebox{1ex}{$\blacktriangleright$}\ }}
+\else
+    \def\@cv@listbullet{}
+\fi
+
+% #1 - handler[2]
+\DeclareDocumentCommand{\@cv@metablock@helper}{m +m m}{%
     \if@cv@metablock@guard
         \PackageError{cvdsl}{Nested metablocks are not allowed}%
     \fi%
     \global\@cv@metablock@guardtrue%
         % output title line
-        \@cv@block{#1}{}%
+        #1{#2}{%
         % redefine block to be subblock, output body and revert all back
+        % note: we cannot just rely on grouping here because of the nature
+        %       of tabulars in latex; this code should be generic enough
+        %       to allow such usage scenario
         \global\let\@cv@savedblock=\@cv@block%
         \gdef\@cv@block{\@cv@subblock}%
-            #2%
-        \global\let\@cv@block=\@cv@savedblock%
+            #3%
+        \global\let\@cv@block=\@cv@savedblock}%
     \global\@cv@metablock@guardfalse%
 }
+
+% lists don't require any per-style customizations yet
 \DeclareDocumentCommand{\@cv@bullets}{+m}{%
     % note surrounding braces here
     {\begin{cv@bullets}#1\unskip\end{cv@bullets}}%
@@ -55,23 +79,115 @@
     \@cv@block{#1}{\@cv@bullets{#2}}%
 }
 
-\DeclareDocumentCommand{\@cv@setup}{}{%
-    % utilities
-    \def\Break{\par}
-    \def\_{\Break}
-    % blocks
+\DeclareDocumentCommand{\@cv@setup@common}{}{
+    \@cv@setup@style
     \def\Block{\@cv@block}
-    \def\Metablock{\@cv@metablock}
+    \def\Metablock{\@cv@metablock@helper{\@cv@metablock@handler}}
     \def\Bullets{\@cv@bullets}
     \def\Bullet{\@cv@bullet}
     \def\BulletedBlock{\@cv@bulletedBlock}
+    \@cv@setup@user
 }
 
-\DeclareDocumentEnvironment{CV}{O{2.5cm} +b}{%
-    \@cv@setup@style
-    \@cv@setup%
-    \@cv@userSetup%
-    \noindent\begin{tabularx}{\textwidth}{>{\bfseries} p{#1} X}
-        #2
-    \end{tabularx}%
-}{}
+\if@cv@cfg@table %%= BEGIN table
+
+    \setlist[cv@bullets]{%
+        font=\normalfont\@cv@listbullet,%
+        after=\vspace{-2\baselineskip},%
+        before=\vspace{-0.6\baselineskip}%
+    }
+
+    \DeclareDocumentCommand{\@cv@setup@style}{}{
+        \setlist{nosep}
+        \setlength{\tabcolsep}{12pt}
+        \setlength{\extrarowheight}{12pt}
+    }
+
+    \DeclareDocumentCommand{\@cv@subblock@format}{+m}{\hfill\textnormal{#1}}
+
+    \DeclareDocumentCommand{\@cv@block}{+m +m}{#1 & #2\\}
+    \DeclareDocumentCommand{\@cv@subblock}{+m +m}{\@cv@subblock@format{#1} & #2\\}
+    \DeclareDocumentCommand{\@cv@metablock@handler}{+m m}{\@cv@block{#1}{}#2}
+
+    \DeclareDocumentCommand{\@cv@setup}{}{%
+        % utilities
+        \def\Break{\par}
+        \def\_{\Break}
+        % conditionals
+        \def\IfTable##1{##1}
+        \def\IfTableTF##1##2{##1}
+        \def\IfFlat##1{}
+        \def\IfFlatTF##1##2{##2}
+        % blocks
+        \@cv@setup@common
+    }
+
+    \DeclareDocumentEnvironment{CV}{O{2.5cm} +b}{%
+        \@cv@setup%
+        \noindent\begin{tabularx}{\textwidth}{>{\bfseries} p{#1} X}
+            #2
+        \end{tabularx}%
+    }{}
+
+\else %%= END table BEGIN flat
+
+    % works both for empty and non-empty bullet
+    \setlist[cv@bullets]{%
+        font=\normalfont\bfseries\@cv@listbullet,%
+        itemindent=.5em - \parindent - \widthof{\@cv@listbullet},%
+        leftmargin=\parindent + \widthof{\@cv@listbullet},%
+        labelwidth=0pt,%
+        labelsep=.5em,%
+    }
+
+    \DeclareDocumentCommand{\@cv@setup@style}{}{
+        \setlist{nosep}
+        \setlength{\tabcolsep}{0pt}
+        \setlength{\extrarowheight}{5pt}
+    }
+
+    % defer initialization as titlesec package is conditionally loaded
+    \AtEndOfPackage{
+        \newcounter{@cv@header}
+        \titleclass{\@cv@header}{straight}[\chapter]
+        \titleformat{\@cv@header}[hang]{\normalfont\bfseries}{}{0pt}{}[{\titlerule[0.8pt]}]
+        \titlespacing*{\@cv@header}{0pt}{2ex}{1ex}
+    }
+
+    \DeclareDocumentCommand{\@cv@block}{+m +m}{\@cv@header*{#1}#2}
+    \DeclareDocumentCommand{\@cv@subblock}{+m +m}{%
+        % remove possible leading space
+        \unskip{#1} && #2\\%
+    }
+    \DeclareDocumentCommand{\@cv@metablock@handler}{+m m}{\@cv@block{#1}{%
+        % fixup extra vertical space
+        \vspace*{-\extrarowheight}%
+            \noindent\begin{tabularx}{\textwidth}{>{\hfill\normalfont} r p{12pt} X}%
+                #2
+            \end{tabularx}%
+            % as we always end subblock with \\, we need to somehow
+            % get rid of the empty row; here is the easiest way to overcome this
+            % TODO: subblock should be smarter to allow this line to be removed
+            \vspace*{-\baselineskip}%
+        \vspace*{-\extrarowheight}%
+    }}
+
+    \DeclareDocumentCommand{\@cv@setup}{}{%
+        % utilities
+        \def\Break{\par}
+        \def\_{}
+        % conditionals
+        \def\IfTable##1{}
+        \def\IfTableTF##1##2{##2}
+        \def\IfFlat##1{##1}
+        \def\IfFlatTF##1##2{##1}
+        % blocks
+        \@cv@setup@common
+    }
+
+    \DeclareDocumentEnvironment{CV}{+b}{%
+        \@cv@setup%
+        #1%
+    }{}
+
+\fi %%= BEGIN flat
