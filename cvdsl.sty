@@ -35,7 +35,7 @@
 \DeclareDocumentCommand{\@cs@setup@cmdgen}{m}{%
     \expandafter\gdef\csname ApplyCV#1\endcsname{}
     \expandafter\gdef\csname WithCV#1\endcsname##1{\begingroup\csname ApplyCV#1\endcsname##1\endgroup}
-    \expandafter\gdef\csname SetupCV#1\endcsname{\@cs@setup@cmdgen@worker{}}
+    \expandafter\gdef\csname SetupCV#1\endcsname{\@cs@setup@cmdgen@worker{#1}}
 }
 \DeclareDocumentCommand{\NewSetupCV}{m}{\@cs@setup@cmdgen{#1}}
 % main SetupCV
