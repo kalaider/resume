@@ -1,4 +1,5 @@
-\def\cvSkillsSetup{%
+\NewSetupCV{Skills}
+\SetupCVSkills{
     % common skills
     \def\Langs{\Skill[\ENRU{Programming languages}{Языки программирования}]}%
     \def\OtherLangs{\Skill[\ENRU{Other languages}{Прочие языки}]}%
@@ -12,24 +13,24 @@
     \def\JavaServers{\Skill[\ENRU{Servers / servlet containers}{Серверы / контейнеры сервлетов}]}%
     \def\JavaTestingTools{\Skill[\ENRU{Testing tools}{Инструменты тестирования} (\w{Java})]}%
     \def\DevOps{\Skill[\w{DevOps}]}%
-    % user setup
-    \cvSkillsExtraSetup%
 }
-\def\cvSkillsExtraSetup{}
-\def\SetupCVSkills#1{\def\cvSkillsExtraSetup{#1}}
+
+\NewSetupCV{Header}
+\SetupCVHeader{
+    \def\Name#1{\bb{#1}\Skip{0.5\baselineskip}}%
+    \def\Age{}%
+}
 
 \SetupCV{%
     \def\MyHeader{\blockHeader}%
-    \def\Name##1{\bb{##1}\Skip{0.5\baselineskip}}%
-    \def\Age{}%
     \def\ContactInfo{\blockContactInfo}%
     \def\Languages{\blockLanguages}%
     \def\Education{\metablockEducation}%
     \def\WorkExperience{\Block{\ENRU{Work\_ Experience}{Опыт\_ работы}}}%
     \def\Skill{\Bullet}%
     \def\Note{\Bullet[\ii{\ENRU{Note}{Замечание}}]}%
-    \def\Skills##1{\Block{\ENRU{Professional\_ Skills}{Профессио\-наль\-ные\_ навыки}}{%
-        {\cvSkillsSetup\Bullets{##1}}}}%
+    \def\Skills#1{\Block{\ENRU{Professional\_ Skills}{Профессио\-наль\-ные\_ навыки}}{%
+        {\ApplyCVSkills\Bullets{#1}}}}%
     \def\AboutMe{\BulletedBlock{\ENRU{About Me}{О себе}}}%
     \def\Other{\BulletedBlock{\ENRU{Other}{Прочее}}}%
     \def\GitHub{\Bullet[GitHub]{\url{\myGithub}}}%
