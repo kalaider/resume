@@ -3,6 +3,7 @@
 \RequirePackage{amssymb}    % for bullets
 \RequirePackage{xkeyval}    % package options
 \RequirePackage{xparse}
+\RequirePackage{etoolbox}   % apptocmd
 \RequirePackage{calc}       % widthof
 \RequirePackage{enumitem}   % lists
 \RequirePackage{tabularx}   % either way, used in both styles
@@ -28,10 +29,17 @@
 
 % user setup support
 
-\DeclareDocumentCommand{\@cv@setup@user}{}{}
-\DeclareDocumentCommand{\SetupCV}{m}{%
-    \DeclareDocumentCommand{\@cv@setup@user}{}{#1}%
+\DeclareDocumentCommand{\@cs@setup@cmdgen@worker}{m m}{%
+    \expandafter\apptocmd\csname ApplyCV#1\endcsname{#2}{}{}%
 }
+\DeclareDocumentCommand{\@cs@setup@cmdgen}{m}{%
+    \expandafter\gdef\csname ApplyCV#1\endcsname{}
+    \expandafter\gdef\csname WithCV#1\endcsname##1{\begingroup\csname ApplyCV#1\endcsname##1\endgroup}
+    \expandafter\gdef\csname SetupCV#1\endcsname{\@cs@setup@cmdgen@worker{}}
+}
+\DeclareDocumentCommand{\NewSetupCV}{m}{\@cs@setup@cmdgen{#1}}
+% main SetupCV
+\NewSetupCV{}
 
 % other common definitions
 
@@ -95,7 +103,7 @@
     \def\Bullets{\@cv@bullets}
     \def\Bullet{\@cv@bullet}
     \def\BulletedBlock{\@cv@bulletedBlock}
-    \@cv@setup@user
+    \ApplyCV
 }
 
 \if@cv@cfg@table %%= BEGIN table
