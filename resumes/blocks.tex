@@ -19,6 +19,9 @@
 \def\SetupCVSkills#1{\def\cvSkillsExtraSetup{#1}}
 
 \SetupCV{%
+    \def\MyHeader{\blockHeader}%
+    \def\Name##1{\bb{##1}\Skip{0.5\baselineskip}}%
+    \def\Age{}%
     \def\ContactInfo{\blockContactInfo}%
     \def\Languages{\blockLanguages}%
     \def\Education{\metablockEducation}%
@@ -33,11 +36,13 @@
     \def\GitLab{\Bullet[GitLab]{\url{\myGitlab}}}%
 }
 
-\def\CVHeader{
-    \begin{center}
-        \bb{\myName}\\[0.5\baselineskip]
-        \myBirthDateAndAge\\[\baselineskip]
-    \end{center}
+\DeclareDocumentEnvironment{MyCV}{+b}{\begin{CV}\MyHeader\Body{#1}\end{CV}}{}
+
+\def\blockHeader{
+    \Header{
+        \Name{\myName}
+        \Age{\myBirthDateAndAge}
+    }
 }
 
 \def\blockContactInfo{
