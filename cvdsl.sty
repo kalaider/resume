@@ -79,8 +79,17 @@
     \@cv@block{#1}{\@cv@bullets{#2}}%
 }
 
+% header is currently also style-independent
+\DeclareDocumentCommand{\@cv@head}{+m}{%
+    \noindent\begin{center}#1\unskip\Skip{\baselineskip}\end{center}%
+}
+
+\DeclareDocumentCommand{\@cv@skip}{m}{\\[#1]}
+
 \DeclareDocumentCommand{\@cv@setup@common}{}{
     \@cv@setup@style
+    \def\Header{\@cv@head}
+    \def\Body{\@cv@body}
     \def\Block{\@cv@block}
     \def\Metablock{\@cv@metablock@helper{\@cv@metablock@handler}}
     \def\Bullets{\@cv@bullets}
@@ -108,10 +117,17 @@
     \DeclareDocumentCommand{\@cv@block}{+m +m}{#1 & #2\\}
     \DeclareDocumentCommand{\@cv@subblock}{+m +m}{\@cv@subblock@format{#1} & #2\\}
     \DeclareDocumentCommand{\@cv@metablock@handler}{+m m}{\@cv@block{#1}{}#2}
+    \DeclareDocumentCommand{\@cv@head}{+m}{\noindent\begin{center}#1\end{center}}
+    \DeclareDocumentCommand{\@cv@body}{m +m}{%
+        \noindent\begin{tabularx}{\textwidth}{>{\bfseries} p{#1} X}
+            #2
+        \end{tabularx}%
+    }
 
-    \DeclareDocumentCommand{\@cv@setup}{}{%
+    \DeclareDocumentCommand{\@cv@setup}{m}{%
         % utilities
         \def\Break{\par}
+        \def\Skip{\@cv@skip}
         \def\_{\Break}
         % conditionals
         \def\IfTable##1{##1}
@@ -120,13 +136,13 @@
         \def\IfFlatTF##1##2{##2}
         % blocks
         \@cv@setup@common
+        % redefine body as in the table style it takes additional argument
+        \def\Body{\@cv@body{#1}}
     }
 
     \DeclareDocumentEnvironment{CV}{O{2.5cm} +b}{%
-        \@cv@setup%
-        \noindent\begin{tabularx}{\textwidth}{>{\bfseries} p{#1} X}
-            #2
-        \end{tabularx}%
+        \@cv@setup{#1}%
+        #2%
     }{}
 
 \else %%= END table BEGIN flat
@@ -171,10 +187,12 @@
             \vspace*{-\baselineskip}%
         \vspace*{-\extrarowheight}%
     }}
+    \DeclareDocumentCommand{\@cv@body}{+m}{#1} % no-op
 
     \DeclareDocumentCommand{\@cv@setup}{}{%
         % utilities
         \def\Break{\par}
+        \def\Skip{\@cv@skip}
         \def\_{}
         % conditionals
         \def\IfTable##1{}
